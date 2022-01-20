@@ -16,7 +16,7 @@ defmodule Blog.MixProject do
         licences: ["MIT"],
         links: %{
           "Github" => @github_url
-        },
+        }
       ],
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
