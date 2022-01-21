@@ -3,14 +3,15 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-      "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
+        "deploy": "cd .. && mix assets.deploy && rm -f _build/esbuild"
     },
     "dependencies": {
-      "phoenix": "file:../deps/phoenix",
-      "phoenix_html": "file:../deps/phoenix_html",
-      "phoenix_live_view": "file:../deps/phoenix_live_view"
+        "materialize-css": "^1.0.0-rc.2",
+        "phoenix": "file:../deps/phoenix",
+        "phoenix_html": "file:../deps/phoenix_html",
+        "phoenix_live_view": "file:../deps/phoenix_live_view"
     },
     "devDependencies": {
-      "esbuild": "^0.12.24"
+        "esbuild": "^0.12.24"
     }
-  }
+}
