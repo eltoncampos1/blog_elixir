@@ -4,12 +4,15 @@
     <li class="collection-item">
         <div>
             <%= post.title %>
-             <a href="#!" class="secondary-content green-text">
-                <i class="material-icons">edit</i>
-            </a>
-             <a href="#!" class="secondary-content red-text">
+
+            <%= link to: Routes.post_path(@conn, :delete, post), method: :delete, data: [confirm: "Are you sure?"], class: "secondary-content red-text" do %>
                 <i class="material-icons">delete</i>
-            </a>
+            <% end %>
+
+            <%= link to: Routes.post_path(@conn, :edit, post),  class: "secondary-content green-text" do %>
+                <i class="material-icons">edit</i>
+            <% end %>
+
             <%= link to: Routes.post_path(@conn, :show, post), class: "secondary-content" do %>
                 <i class="material-icons blue-text">send</i>
             <% end%>
