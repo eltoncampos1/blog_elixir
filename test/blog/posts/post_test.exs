@@ -1,4 +1,8 @@
 defmodule Blog.PostsTest do
+  @moduledoc """
+  Post context tests
+  """
+
   use Blog.DataCase
   alias Blog.{Posts, Posts.Post}
 
@@ -24,16 +28,16 @@ defmodule Blog.PostsTest do
   end
 
   test "list_posts/0 return all posts" do
-   post = post_fixture()
-   assert Posts.list_posts() == [post]
+    post = post_fixture()
+    assert Posts.list_posts() == [post]
   end
 
   test "get_post/1 return all posts" do
     post = post_fixture()
     assert Posts.get_post(post.id) == post
-   end
+  end
 
-   test "update_post/2 with valid data" do
+  test "update_post/2 with valid data" do
     post = post_fixture()
 
     assert {:ok, %Post{} = post} = Posts.update_post(post.id, @updated_post)
@@ -45,6 +49,5 @@ defmodule Blog.PostsTest do
     post = post_fixture()
     assert post = Posts.delete_post(post.id)
     assert_raise Ecto.NoResultsError, fn -> Posts.get_post(post.id) end
-   end
-
+  end
 end

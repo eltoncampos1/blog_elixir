@@ -1,4 +1,8 @@
 defmodule BlogWeb.PostControllerTest do
+  @moduledoc """
+  Post_controller tests
+  """
+
   use BlogWeb.ConnCase
 
   @valid_post %{

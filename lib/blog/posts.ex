@@ -1,4 +1,8 @@
 defmodule Blog.Posts do
+  @moduledoc """
+  Posts context
+  """
+
   alias Blog.{Posts.Post, Repo}
 
   def list_posts, do: Repo.all(Post)
