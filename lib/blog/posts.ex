@@ -3,7 +3,7 @@ defmodule Blog.Posts do
 
   def list_posts, do: Repo.all(Post)
 
-  def get_post(id), do: Repo.get(Post, id)
+  def get_post(id), do: Repo.get!(Post, id)
 
   def create_post(attrs \\ %{}) do
     %Post{}
@@ -14,7 +14,7 @@ defmodule Blog.Posts do
   def update_post(id, post_params) do
     get_post(id)
     |> Post.changeset(post_params)
-    |> Repo.update!()
+    |> Repo.update()
   end
 
   def delete_post(id) do

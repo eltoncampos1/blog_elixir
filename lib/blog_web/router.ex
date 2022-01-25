@@ -10,32 +10,12 @@ defmodule BlogWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  # coveralls-ignore-start
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  # coveralls-ignore-stop
-
   scope "/", BlogWeb do
     pipe_through :browser
-
-    # get "/posts/new", PostController, :new
-    # get "/posts", PostController, :index
-    # get "/posts/:id", PostController, :show
-    # post "/posts", PostController, :create
-    # delete "/posts/:id", PostController, :delete
-    # get "/posts/:id/edit", PostController, :edit
-    # put "/posts/:id", PostController, :update
 
     resources "/posts", PostController
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", BlogWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
