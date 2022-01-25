@@ -8,7 +8,7 @@ defmodule Blog.Posts do
   def create_post(attrs \\ %{}) do
     %Post{}
     |> Post.changeset(attrs)
-    |> Repo.insert!()
+    |> Repo.insert()
   end
 
   def update_post(id, post_params) do
