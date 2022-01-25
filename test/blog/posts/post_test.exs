@@ -40,7 +40,7 @@ defmodule Blog.PostsTest do
   test "update_post/2 with valid data" do
     post = post_fixture()
 
-    assert {:ok, %Post{} = post} = Posts.update_post(post.id, @updated_post)
+    assert {:ok, %Post{} = post} = Posts.update_post(post, @updated_post)
     assert post.title == "teste_update"
     assert post.description == "desc_test_updated"
   end
