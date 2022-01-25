@@ -21,4 +21,18 @@ defmodule BlogWeb.PostControllerTest do
     conn = get(conn, Routes.post_path(conn, :show, post))
     assert html_response(conn, 200) =~ "teste"
   end
+
+  test "Render form to create a new post", %{conn: conn} do
+    conn = get(conn, Routes.post_path(conn, :new))
+    assert html_response(conn, 200) =~ "Title"
+  end
+
+  test "create a new post", %{conn: conn} do
+    conn = post(conn, Routes.post_path(conn, :create), post: @valid_post)
+    assert %{id: id} = redirected_params(conn)
+    assert redirected_to(conn) == Routes.post_path(conn, :show, id)
+
+    conn = get(conn, Routes.post_path(conn, :show, id))
+    assert html_response(conn, 200) =~ "teste"
+  end
 end
