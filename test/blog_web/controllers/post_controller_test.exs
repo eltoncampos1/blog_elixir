@@ -15,6 +15,11 @@ defmodule BlogWeb.PostControllerTest do
     description: "desc_test_updated"
   }
 
+  def fixture(:post) do
+    {:ok, post} = Blog.Posts.create_post(@valid_post)
+    post
+  end
+
   test "List all posts", %{conn: conn} do
     Blog.Posts.create_post(@valid_post)
     conn = get(conn, Routes.post_path(conn, :index))
@@ -47,29 +52,38 @@ defmodule BlogWeb.PostControllerTest do
     assert html_response(conn, 200) =~ "can&#39;t be blank"
   end
 
-  test "Render form to edit an post", %{conn: conn} do
-    {:ok, post} = Blog.Posts.create_post(@valid_post)
+  describe "depends on posts created" do
+    setup [:create_post]
 
-    conn = get(conn, Routes.post_path(conn, :edit, post))
-    assert html_response(conn, 200) =~ "desc_test"
-    assert html_response(conn, 200) =~ "teste"
+    test "Render form to edit an post", %{conn: conn, post: post} do
+      conn = get(conn, Routes.post_path(conn, :edit, post))
+      assert html_response(conn, 200) =~ "desc_test"
+      assert html_response(conn, 200) =~ "teste"
+    end
+
+    test "edit an post", %{conn: conn, post: post} do
+      conn = put(conn, Routes.post_path(conn, :update, post), post: @updated_post)
+      assert %{id: id} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.post_path(conn, :show, id)
+
+      conn = get(conn, Routes.post_path(conn, :show, id))
+      assert html_response(conn, 200) =~ "desc_test_updated"
+    end
+
+    test "edit an post with invalid params", %{conn: conn, post: post} do
+      conn =
+        put(conn, Routes.post_path(conn, :update, post), post: %{title: nil, description: nil})
+
+      assert html_response(conn, 200) =~ "can&#39;t be blank"
+    end
+
+    test "delete post", %{conn: conn, post: post} do
+      conn = delete(conn, Routes.post_path(conn, :delete, post))
+
+      assert redirected_to(conn) == Routes.post_path(conn, :index)
+      assert_error_sent 404, fn -> get(conn, Routes.post_path(conn, :show, post)) end
+    end
   end
 
-  test "edit an post", %{conn: conn} do
-    {:ok, post} = Blog.Posts.create_post(@valid_post)
-
-    conn = put(conn, Routes.post_path(conn, :update, post), post: @updated_post)
-    assert %{id: id} = redirected_params(conn)
-    assert redirected_to(conn) == Routes.post_path(conn, :show, id)
-
-    conn = get(conn, Routes.post_path(conn, :show, id))
-    assert html_response(conn, 200) =~ "desc_test_updated"
-  end
-
-  test "edit an post with invalid params", %{conn: conn} do
-    {:ok, post} = Blog.Posts.create_post(@valid_post)
-    conn = put(conn, Routes.post_path(conn, :update, post), post: %{title: nil, description: nil})
-
-    assert html_response(conn, 200) =~ "can&#39;t be blank"
-  end
+  defp create_post(_), do: %{post: fixture(:post)}
 end
