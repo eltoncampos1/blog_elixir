@@ -1,4 +1,8 @@
 defmodule Blog.CommentsTest do
+  @moduledoc """
+  Comments test
+  """
+
   use Blog.DataCase
 
   alias Blog.Comments
@@ -24,14 +28,14 @@ defmodule Blog.CommentsTest do
       valid_attrs = %{content: "some content"}
       post = Blog.PostsTest.post_fixture()
 
-      assert {:ok, %Comment{} = comment} = Comments.create_comment(post.id,valid_attrs)
+      assert {:ok, %Comment{} = comment} = Comments.create_comment(post.id, valid_attrs)
       assert comment.content == "some content"
     end
 
     test "create_comment/1 with invalid data returns error changeset" do
       post = Blog.PostsTest.post_fixture()
 
-      assert {:error, %Ecto.Changeset{}} = Comments.create_comment(post.id,@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Comments.create_comment(post.id, @invalid_attrs)
     end
 
     test "update_comment/2 with valid data updates the comment" do
