@@ -1,8 +1,11 @@
 defmodule BlogWeb.CommentsChannel do
+  @moduledoc """
+  Comments channel for websockets
+  """
   use BlogWeb, :channel
 
   @impl true
-  def join("comments:lobby", payload, socket) do
+  def join("comments:" <> post_id, payload, socket) do
     if authorized?(payload) do
       {:ok, socket}
     else
