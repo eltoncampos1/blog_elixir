@@ -6,11 +6,13 @@ defmodule BlogWeb.CommentsChannel do
 
   @impl true
   def join("comments:" <> post_id, payload, socket) do
-    if authorized?(payload) do
-      {:ok, socket}
-    else
-      {:error, %{reason: "unauthorized"}}
-    end
+    post = Blog.Posts.get_post_with_comments(post_id)
+    {:ok, %{comments: post.comments}, socket}
+    # if authorized?(payload) do
+    #   {:ok, socket}
+    # else
+    #   {:error, %{reason: "unauthorized"}}
+    # end
   end
 
   # Channels can be used in a request/response fashion
