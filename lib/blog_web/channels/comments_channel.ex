@@ -8,17 +8,12 @@ defmodule BlogWeb.CommentsChannel do
   def join("comments:" <> post_id, payload, socket) do
     post = Blog.Posts.get_post_with_comments(post_id)
     {:ok, %{comments: post.comments}, socket}
-    # if authorized?(payload) do
-    #   {:ok, socket}
-    # else
-    #   {:error, %{reason: "unauthorized"}}
-    # end
   end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in("ping", payload, socket) do
+  def handle_in("comment:add", payload, socket) do
     {:reply, {:ok, payload}, socket}
   end
 
