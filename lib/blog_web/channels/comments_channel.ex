@@ -7,26 +7,18 @@ defmodule BlogWeb.CommentsChannel do
   @impl true
   def join("comments:" <> post_id, payload, socket) do
     post = Blog.Posts.get_post_with_comments(post_id)
-    {:ok, %{comments: post.comments}, socket}
+    {:ok, %{comments: post.comments}, assign(socket, :post_id, post.id)}
   end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in("comment:add", payload, socket) do
-    {:reply, {:ok, payload}, socket}
+  def handle_in("comment:add", content, socket) do
+    response = socket.assigns.post_id
+    |> Blog.Comments.create_comment(content)
+
+    IO.inspect response
+    {:reply, {:ok, content}, socket}
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (comments:lobby).
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast(socket, "shout", payload)
-    {:noreply, socket}
-  end
-
-  # Add authorization logic here as required.
-  defp authorized?(_payload) do
-    true
-  end
 end
