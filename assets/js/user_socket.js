@@ -61,7 +61,9 @@ const createSocket = (post_id) => {
   let textAreaComment = document.getElementById("comment-text")
   let channel = socket.channel(`comments:${post_id}`, {})
   channel.join()
-    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("ok", resp => {
+      getComments(resp.comments)
+    })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
     btnComment.addEventListener("click", () => {
@@ -72,5 +74,20 @@ const createSocket = (post_id) => {
 
 }
 
+const getComments = (comments) => {
+  const commentsList = comments.map(comment => {
+    return `
+    <li class="collection-item avatar">
+      <i class="material-icons circle red">play_arrow</i>
+      <span class="title">Title</span>
+      <p>
+        ${comment.content}
+      </p>
+    </li>
+    `;
+  })
+
+  document.querySelector(".collection").innerHTML = commentsList.join('')
+}
 
 window.createSocket = createSocket
