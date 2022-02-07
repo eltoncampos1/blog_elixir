@@ -21,7 +21,7 @@ config :logger, level: :info
 #
 config :blog, BlogWeb.Endpoint,
   ...,
-  url: [host: "elixir-blog.gigalixirapp.com/", port: 443],
+  url: [host: "elixir-blog.gigalixirapp.com/", port: 443]
 
 # The `cipher_suite` is set to `:strong` to support only the
 # latest and more secure SSL ciphers. This means old browsers
