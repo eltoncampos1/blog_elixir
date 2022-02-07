@@ -10,10 +10,11 @@ defmodule Blog.CommentsFixtures do
   def comment_fixture(attrs \\ %{}) do
     post = Blog.PostsTest.post_fixture()
 
-    att = attrs
-    |> Enum.into(%{
-      content: "some content"
-    })
+    att =
+      attrs
+      |> Enum.into(%{
+        content: "some content"
+      })
 
     {:ok, comment} =
       post.id

@@ -38,5 +38,4 @@ defmodule BlogWeb.CommentsChannelTest do
     assert_broadcast ^broadcast_event, msg
     refute is_nil(msg)
   end
-
 end
