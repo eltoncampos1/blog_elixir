@@ -20,10 +20,7 @@ config :logger, level: :info
 # to the previous section and set your `:url` port to 443:
 config :blog, BlogWeb.Endpoint,
   url: [host: "elixir-blog.gigalixirapp.com/", port: 80],
-  https: [
-    port: 443,
-    cipher_suite: :strong,
-  ]
+  cache_static_manifest: "priv/static/cache_manifest.json"
 # The `cipher_suite` is set to `:strong` to support only the
 # latest and more secure SSL ciphers. This means old browsers
 # and clients may not be supported. You can set it to
