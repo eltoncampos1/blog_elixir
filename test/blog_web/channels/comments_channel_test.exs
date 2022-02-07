@@ -1,27 +1,26 @@
 defmodule BlogWeb.CommentsChannelTest do
+  @moduledoc """
+  Comments websocket channel test
+  """
+
   use BlogWeb.ChannelCase
+  alias BlogWeb.UserSocket
+  alias Blog.Posts
 
-  setup do
-    {:ok, _, socket} =
-      BlogWeb.UserSocket
-      |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(BlogWeb.CommentsChannel, "comments:lobby")
+  @valid_post %{
+    title: "teste_title",
+    description: "test_desc"
+  }
 
-    %{socket: socket}
+  test "should connect to socket" do
+
+    {:ok, post} = Posts.create_post(@valid_post)
+    {:ok, socket} = connect(UserSocket, %{})
+
+    {:ok, comments, socket} = subscribe_and_join(socket, "comments:#{post.id}", %{})
+
+   assert post.id == socket.assigns.post_id
+   assert [] == comments.comments
   end
 
-  test "ping replies with status ok", %{socket: socket} do
-    ref = push(socket, "ping", %{"hello" => "there"})
-    assert_reply ref, :ok, %{"hello" => "there"}
-  end
-
-  test "shout broadcasts to comments:lobby", %{socket: socket} do
-    push(socket, "shout", %{"hello" => "all"})
-    assert_broadcast "shout", %{"hello" => "all"}
-  end
-
-  test "broadcasts are pushed to the client", %{socket: socket} do
-    broadcast_from!(socket, "broadcast", %{"some" => "data"})
-    assert_push "broadcast", %{"some" => "data"}
-  end
 end
