@@ -1,4 +1,7 @@
 defmodule Blog.Comments.Comment do
+  @moduledoc """
+  Comments.Comment module
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
