@@ -66,6 +66,7 @@ const createSocket = (post_id) => {
     })
     .receive("error", resp => { console.log("Unable to join", resp) })
 
+    channel.on(`comments:${post_id}:new`, includComment)
     btnComment.addEventListener("click", () => {
       let content = textAreaComment.value
       channel.push("comment:add", {content})
@@ -74,20 +75,29 @@ const createSocket = (post_id) => {
 
 }
 
+const includComment = ({ comment }) => {
+ console.log(comment)
+ document.querySelector(".collection").innerHTML += commentsTemplate(comment)
+}
+
 const getComments = (comments) => {
   const commentsList = comments.map(comment => {
-    return `
-    <li class="collection-item avatar">
-      <i class="material-icons circle red">play_arrow</i>
-      <span class="title">Title</span>
-      <p>
-        ${comment.content}
-      </p>
-    </li>
-    `;
+    return commentsTemplate(comment);
   })
 
   document.querySelector(".collection").innerHTML = commentsList.join('')
+}
+
+const commentsTemplate = (comment) => {
+  return `
+  <li class="collection-item avatar">
+    <i class="material-icons circle red">play_arrow</i>
+    <span class="title">Title</span>
+    <p>
+      ${comment.content}
+    </p>
+  </li>
+  `
 }
 
 window.createSocket = createSocket

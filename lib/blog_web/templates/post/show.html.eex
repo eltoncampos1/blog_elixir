@@ -32,12 +32,7 @@
   </div>
 
  <ul class="collection">
-    <li class="collection-item avatar">
-      <i class="material-icons circle red">play_arrow</i>
-      <span class="title">Title</span>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis provident id atque quam doloremque maiores?
-      </p>
-    </li>
+
   </ul>
 
 <script>
