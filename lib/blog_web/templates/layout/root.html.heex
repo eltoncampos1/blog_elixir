@@ -14,29 +14,8 @@
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <%= link "M.Blog" , to: Routes.page_path(@conn, :index), class: "brand-logo" %>
-
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <%= if @conn.assigns[:user] do %>
-            <li><a href="#">Welcome!!! <%= @conn.assigns[:user].email %> </a></li>
-            <li>
-              <%= link "Posts" , to: Routes.post_path(@conn, :index) %>
-            </li>
-            <li>
-              <%= link "Logout" , to: Routes.auth_path(@conn, :logout) %>
-            </li>
-            <%= else %>
-              <li>
-                <%= link "Logar" , to: Routes.auth_path(@conn, :request, "google" ) %>
-              </li>
-              <% end %>
-
-        </ul>
-    </div>
-  </nav>
-  <%= @inner_content %>
+  <%= render BlogWeb.SharedView, "_menu.html" , assigns %>
+    <%= @inner_content %>
 </body>
 
 </html>
