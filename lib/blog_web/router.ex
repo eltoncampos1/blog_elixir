@@ -8,6 +8,7 @@ defmodule BlogWeb.Router do
     plug :put_root_layout, {BlogWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug BlogWeb.Plug.SetUser
   end
 
   scope "/", BlogWeb do
@@ -20,6 +21,7 @@ defmodule BlogWeb.Router do
   scope "/auth", BlogWeb do
     pipe_through :browser
 
+    get "/logout", AuthController, :logout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
   end
