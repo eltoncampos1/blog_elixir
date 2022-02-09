@@ -1,5 +1,6 @@
 defmodule BlogWeb.AuthController do
   use BlogWeb, :controller
+  alias Blog.Accounts
 
   plug Ueberauth
 
@@ -11,7 +12,8 @@ defmodule BlogWeb.AuthController do
       image: auth.info.image,
       provider: provider
     }
-    IO.inspect user
+
+    Accounts.create_user(user)
     render(conn, "index.html")
   end
 end
