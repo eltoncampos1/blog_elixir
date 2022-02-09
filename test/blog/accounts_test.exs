@@ -8,7 +8,14 @@ defmodule Blog.AccountsTest do
 
     import Blog.AccountsFixtures
 
-    @invalid_attrs %{email: nil, first_name: nil, image: nil, last_name: nil, provider: nil, token: nil}
+    @invalid_attrs %{
+      email: nil,
+      first_name: nil,
+      image: nil,
+      last_name: nil,
+      provider: nil,
+      token: nil
+    }
 
     test "list_users/0 returns all users" do
       user = user_fixture()
@@ -21,7 +28,14 @@ defmodule Blog.AccountsTest do
     end
 
     test "create_user/1 with valid data creates a user" do
-      valid_attrs = %{email: "some email", first_name: "some first_name", image: "some image", last_name: "some last_name", provider: "some provider", token: "some token"}
+      valid_attrs = %{
+        email: "some email",
+        first_name: "some first_name",
+        image: "some image",
+        last_name: "some last_name",
+        provider: "some provider",
+        token: "some token"
+      }
 
       assert {:ok, %User{} = user} = Accounts.create_user(valid_attrs)
       assert user.email == "some email"
@@ -38,7 +52,15 @@ defmodule Blog.AccountsTest do
 
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
-      update_attrs = %{email: "some updated email", first_name: "some updated first_name", image: "some updated image", last_name: "some updated last_name", provider: "some updated provider", token: "some updated token"}
+
+      update_attrs = %{
+        email: "some updated email",
+        first_name: "some updated first_name",
+        image: "some updated image",
+        last_name: "some updated last_name",
+        provider: "some updated provider",
+        token: "some updated token"
+      }
 
       assert {:ok, %User{} = user} = Accounts.update_user(user, update_attrs)
       assert user.email == "some updated email"

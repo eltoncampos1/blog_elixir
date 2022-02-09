@@ -50,13 +50,14 @@ defmodule Blog.Accounts do
 
   """
   def create_user(user) do
-
-    case Repo.get_by!(User, email: user.email) do
+    case Repo.get_by(User, email: user.email) do
       nil ->
         %User{}
         |> User.changeset(user)
         |> Repo.insert()
-      user -> {:ok, user}
+
+      user ->
+        {:ok, user}
     end
   end
 

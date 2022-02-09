@@ -40,8 +40,7 @@ defmodule Blog.MixProject do
   def application do
     [
       mod: {Blog.Application, []},
-      extra_applications:
-      [
+      extra_applications: [
         :logger,
         :runtime_tools,
         :ueberauth_google
