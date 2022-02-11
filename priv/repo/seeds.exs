@@ -19,6 +19,15 @@ user = %{
     "ya29.A0ARrdaM-NqSvnASKQGLZnmpunvPqqbvPidU6rUg7Mw_0ELJPQOkfw9u6skF4m-rJ54XAIHk3JpmfluUkUXQvyfkFdQV-51gJYK6V7DrM2uQs5iDP-i9LpJBVKIWAakU22NNCj6UcgBf8c8rF9q2cmTP5uTnCNfw"
 }
 
+user_2 = %{
+  email: "asdasd@gmail.com",
+  first_name: nil,
+  image: "https://asdadas.googleusercontent.com/a/default-user=s96-c",
+  provider: "google",
+  token:
+    "ya29.A0ARrdaM-asdadasdasd-rJ54XAIHk3JpmfluUkUXQvyfkFdQV-51gJYK6V7DrM2uQs5iDP-i9LpJBVKIWAakU22NNCj6UcgBf8c8rF9q2cmTP5uTnCNfw"
+}
+
 phoenix = %{
   title: "Phoenix framework",
   description:
@@ -26,4 +35,6 @@ phoenix = %{
 }
 
 {:ok, user} = Blog.Accounts.create_user(user)
-{:ok, phoenix} = Posts.create_post(user, phoenix)
+{:ok, _user_2} = Blog.Accounts.create_user(user_2)
+
+{:ok, _phoenix} = Posts.create_post(user, phoenix)

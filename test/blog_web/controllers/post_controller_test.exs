@@ -46,6 +46,16 @@ defmodule BlogWeb.PostControllerTest do
     assert html_response(conn, 200) =~ "Title"
   end
 
+  test "Render form to create a new post with no user auth", %{conn: conn} do
+    conn =
+    conn
+    |> get(Routes.post_path(conn, :new))
+    assert redirected_to(conn) == Routes.page_path(conn, :index)
+
+    conn = get(conn, Routes.page_path(conn, :index))
+    assert html_response(conn, 200) =~ "You are not logged in."
+  end
+
   test "create a new post", %{conn: conn} do
     conn =
     conn
@@ -80,6 +90,19 @@ defmodule BlogWeb.PostControllerTest do
       |> get(Routes.post_path(conn, :edit, post))
 
       assert html_response(conn, 200) =~ "a"
+    end
+
+    test "Render form to edit an post with no auth", %{conn: conn} do
+      user = Blog.Accounts.get_user!(1)
+      {:ok, post} = Blog.Posts.create_post(user, @valid_post)
+      conn =
+      conn
+      |> Plug.Test.init_test_session(user_id: 2)
+      |> get(Routes.post_path(conn, :edit, post))
+
+      assert redirected_to(conn) == Routes.page_path(conn, :index)
+      conn = get(conn, Routes.page_path(conn, :index))
+      assert html_response(conn, 200) =~ "You don&#39;t have authorization to do this operation."
     end
 
     test "edit an post", %{conn: conn, post: post} do
