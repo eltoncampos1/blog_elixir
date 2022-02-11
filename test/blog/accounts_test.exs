@@ -50,6 +50,10 @@ defmodule Blog.AccountsTest do
       assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
     end
 
+    test "create_user/1 with invalid data returns error datacase" do
+      assert {:error, changeset} = Accounts.create_user(@invalid_attrs)
+    end
+
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
 
