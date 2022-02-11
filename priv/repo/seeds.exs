@@ -8,31 +8,22 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-alias Blog.{Repo, Posts.Post}
+alias Blog.{Accounts, Accounts.User, Posts, Posts.Post}
 
-phoenix =
-  Post.changeset(%Post{}, %{
-    title: "Phoenix framework",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit eu imperdiet egestas. Phasellus consectetur nisl blandit, dapibus odio sed, dignissim augue. Praesent nec nisi metus. Cras rhoncus lacinia nisi, ac ultricies quam iaculis ut."
-  })
+user = %{
+  email: "eltoncampos36@gmail.com",
+  first_name: nil,
+  image: "https://lh3.googleusercontent.com/a/default-user=s96-c",
+  provider: "google",
+  token:
+    "ya29.A0ARrdaM-NqSvnASKQGLZnmpunvPqqbvPidU6rUg7Mw_0ELJPQOkfw9u6skF4m-rJ54XAIHk3JpmfluUkUXQvyfkFdQV-51gJYK6V7DrM2uQs5iDP-i9LpJBVKIWAakU22NNCj6UcgBf8c8rF9q2cmTP5uTnCNfw"
+}
 
-elixir =
-  Post.changeset(%Post{}, %{
-    title: "Elixir",
-    description:
-      "
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit eu imperdiet egestas. Phasellus consectetur nisl blandit, dapibus odio sed, dignissim augue. Praesent nec nisi metus. Cras rhoncus lacinia nisi, ac ultricies quam iaculis ut."
-  })
+phoenix = %{
+  title: "Phoenix framework",
+  description:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit eu imperdiet egestas. Phasellus consectetur nisl blandit, dapibus odio sed, dignissim augue. Praesent nec nisi metus. Cras rhoncus lacinia nisi, ac ultricies quam iaculis ut."
+}
 
-live_view =
-  Post.changeset(%Post{}, %{
-    title: "Live view",
-    description:
-      "
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum elit eu imperdiet egestas. Phasellus consectetur nisl blandit, dapibus odio sed, dignissim augue. Praesent nec nisi metus. Cras rhoncus lacinia nisi, ac ultricies quam iaculis ut."
-  })
-
-Repo.insert(phoenix)
-Repo.insert(elixir)
-Repo.insert(live_view)
+{:ok, user} = Blog.Accounts.create_user(user)
+{:ok, phoenix} = Posts.create_post(user, phoenix)
