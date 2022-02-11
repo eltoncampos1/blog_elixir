@@ -14,19 +14,8 @@
 </head>
 
 <body>
-  <nav>
-    <div class="nav-wrapper">
-      <a href="#" class="brand-logo">M.Blog</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="#">Welcome!!! </a></li>
-        <li><a href="#">Post</a></li>
-        <li>
-          <%= link "Posts" , to: Routes.post_path(@conn, :index) %>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <%= @inner_content %>
+  <%= render BlogWeb.SharedView, "_menu.html" , assigns %>
+    <%= @inner_content %>
 </body>
 
 </html>

@@ -17,6 +17,15 @@ config :blog, BlogWeb.Endpoint,
   pubsub_server: Blog.PubSub,
   live_view: [signing_salt: "EfcrwEKn"]
 
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails

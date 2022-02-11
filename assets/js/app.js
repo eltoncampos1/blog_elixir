@@ -45,4 +45,7 @@ window.liveSocket = liveSocket
 document.addEventListener('DOMContentLoaded', function() {
     let elems = document.querySelectorAll('.fixed-action-btn');
     M.FloatingActionButton.init(elems, {});
+
+    var els = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(els, {});
 });
